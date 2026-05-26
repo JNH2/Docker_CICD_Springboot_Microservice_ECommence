@@ -1,4 +1,5 @@
 🛒 E-Commerce Microservices Ecosystem | 微服務電商系統
+Java/Springboot/Spring Cloud/Docker/CICD
 
 ![Java](https://img.shields.io/badge/Java-11%2F17-orange?style=flat-square&logo=openjdk)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.3-brightgreen?style=flat-square&logo=spring)
@@ -18,6 +19,8 @@ This project is built on a standardized Spring Cloud distributed architecture. I
 本項目基於標準的 Spring Cloud 分佈式架構構建。採用微服務架構，每個服務都是獨立的進程，處理特定業務邏輯，並透過 REST 通訊實現水平擴展。
  * Service Registry (Eureka): The system's central hub, responsible for service discovery, governance, and monitoring.
    服務註冊中心 (Eureka)： 系統中心樞紐，負責服務發現、治理與監控。
+  Config Server: A unified configuration center that supports versioned management and dynamic updates of environment configurations.
+  Config Server: 統一配置中心，支持環境配置的版本化管理與動態刷新。
  * API Gateway: Unified entry point (Port 9090) for authentication, dynamic routing, and request forwarding.
    API 網關： 統一入口 (端口 9090)，負責安全鑒權、動態路由與請求轉發。
  * Product Service: Independent process handling product management and CRUD operations with MySQL.
@@ -26,6 +29,28 @@ This project is built on a standardized Spring Cloud distributed architecture. I
    訂單服務： 訂單處理模塊，演示負載均衡與透過 Feign 實現的遠程過程調用 (RPC)。
  * Payment Service: Core component responsible for processing payment requests and persisting transaction details.
    支付服務： 核心組件，負責處理支付請求並持久化交易明細。
+
+📦 📦 DevOps & CI/CD | Operations and Automated Deployment
+The project fully implements containerization and automated operations and maintenance, possessing industrial-grade deployment capabilities.
+Docker Containerization:
+Independent Bridge: Uses a custom Docker network to achieve internal DNS resolution and service discovery between containers.
+Multi-Container Orchestration: Utilizes Docker Compose to achieve one-click start and stop of the entire microservice stack.
+Environment Consistency: Ensures high consistency of the development, testing, and production environments through Dockerfiles.
+
+GitHub Actions CI/CD Pipeline:
+Automated Build: Code push triggers Maven compilation, unit testing, and image packaging.
+Automatic Image Push: Automatically pushes the latest images to Docker Hub after the build is complete.
+Delivery process: A seamless, automated delivery chain from source code to container image has been achieved.
+DevOps & CI/CD | 運維與自動化部署
+項目全面實現容器化與自動化運維，具备工業級部署能力。
+ Docker Containerization:
+ 獨立網橋：使用自定義 Docker 網絡實現容器間內部 DNS 解析與服務發現。
+ 多容器編排：利用 Docker Compose 實現整個微服務堆栈的一鍵啟停。
+ 環境一致性：通過 Dockerfile 確保開發、測試與生產環境的運行環境高度一致。
+ GitHub Actions CI/CD Pipeline:
+ 自動化構建：代碼推送即觸發 Maven 編譯、單元測試與鏡像打包。
+ 鏡像自動推送：完成構建後自動將最新鏡像推送至 Docker Hub。
+ 交付流程：實現了從源代碼到容器鏡像的無縫自動化交付鏈路。
 
 🛠️ Tech Stack | 技術棧
  * Framework: Spring Boot 2.7.3 (Enterprise stability) & Spring Cloud 2021.0.x.
@@ -52,7 +77,13 @@ This project is built on a standardized Spring Cloud distributed architecture. I
    挑戰： Java 11 與 Spring Boot 3.x 之間的運行時不相容；測試期間遇到 401 未授權錯誤。
  * Solution: Strategic downgrade to Spring Boot 2.7.3 and excluded SecurityAutoConfiguration during development.
    解決方案： 策略性降級至 Spring Boot 2.7.3，並在開發階段排除安全自動配置以加速測試。
-3. Order Service Specific Issues | 訂單服務特定問題
+3. Automated Operations | Automated Maintenance
+Challenge: Manually managing multi-container environments is inefficient and error-prone.
+Solution: Introduce Docker Compose to coordinate resource allocation and integrate CI/CD to eliminate manual deployment costs.
+Automated Operations | 自動化運維
+ 挑戰：手動管理多容器環境效率低且易出錯。
+ 解決方案：引入 Docker Compose 統籌資源分配，集成 CI/CD 消除手動部署成本。
+4. Order Service Specific Issues | 訂單服務特定問題
  * Errors: 400 Bad Request (wrong JSON keys), Port 8082 occupied, and Git push rejections.
    錯誤： 400 錯誤（JSON 鍵名錯誤）、8082 端口被佔用、以及 Git 推送被拒絕。
  * Solutions: Corrected key to productId, used fuser -k to kill processes, and applied git pull --rebase.
@@ -109,8 +140,8 @@ System Flow Diagram
       │             │              │
       └──────┬──────┴──────┬───────┘
              │             │
-      ▼ [ Eureka Server ]  ▼ [ Zipkin/Sleuth ]
-        (Service Discovery)   (Tracing & Latency Monitoring)
+      ▼ [ Eureka Server ]  ▼ [ ConfigServer]
+        (Service Discovery)   (Configuration)
 
 Component Interaction
        [ User Request ]
@@ -122,6 +153,3 @@ Component Interaction
       [ Order Service ] <-----------------------------/
          (Port: 8082)
 
-下一步建議：
-記得將徽章代碼中的 YOUR_USERNAME/REPO_NAME 替換成你真實的 GitHub 用戶名和倉庫名。
-你需要我幫你寫一份 OpenFeign 的 Java 接口配置代碼，讓 Order Service 能正式「求人辦事」去調用 Product Service 嗎？
