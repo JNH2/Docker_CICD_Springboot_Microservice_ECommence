@@ -2,11 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo 'Code pulled from GitHub'
-            }
-        }
 
         stage('Check Docker') {
             steps {
@@ -14,10 +9,11 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Service Registry') {
             steps {
-                sh 'docker build -t microservice-cicd-demo:latest .'
+                sh 'docker build -t service-registry:latest ./service-registry'
             }
         }
+
     }
 }
