@@ -2,15 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Test GitHub Webhook') {
+        stage('Checkout') {
             steps {
-                echo ' Docker check triggered by GitHub push'
+                echo 'Code pulled from GitHub'
             }
         }
 
         stage('Check Docker') {
             steps {
                 sh 'docker --version'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t microservice-cicd-demo:latest .'
             }
         }
     }
