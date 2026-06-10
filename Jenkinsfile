@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test GitHub Webhook') {
             steps {
-                echo 'Jenkins triggered by GitHub push'
+                echo ' Docker check triggered by GitHub push'
             }
         }
 
