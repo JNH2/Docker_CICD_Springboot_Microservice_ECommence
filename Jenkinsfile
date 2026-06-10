@@ -2,9 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Test connection') {
+        stage('Test GitHub Webhook') {
             steps {
-                echo 'Webhook test from Github push'
+                echo 'Jenkins triggered by GitHub push'
+            }
+        }
+
+        stage('Check Docker') {
+            steps {
+                sh 'docker --version'
             }
         }
     }
