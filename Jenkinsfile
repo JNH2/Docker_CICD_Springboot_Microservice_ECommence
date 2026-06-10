@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test connection') {
             steps {
-                echo 'Jenkins successfully pulled code from GitHub!'
+                echo 'Webhook test from Github push'
             }
         }
     }
