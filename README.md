@@ -153,3 +153,36 @@ Component Interaction
       [ Order Service ] <-----------------------------/
          (Port: 8082)
 
+## CI/CD Pipeline
+
+### Architecture：GitHub → Jenkins → Maven → Docker → Google Cloud VM
+
+### Workflow
+1. Developer pushes code to GitHub.
+2. GitHub Webhook triggers Jenkins Pipeline automatically.
+3. Jenkins checks out the repository.
+4. Maven builds the Spring Boot application and generates a JAR file.
+5. Docker builds the image from the generated JAR.
+6. Jenkins deploys the container to a Google Cloud VM.
+7. Service Registry (Eureka) becomes available at:
+http://<VM-IP>:8761
+
+### Technologies
+- GitHub
+- Jenkins
+- Maven
+- Docker
+- Google Cloud Platform (GCP)
+- Spring Boot
+- Spring Cloud Eureka
+
+### CI/CD Evidence in screeshot folder
+   Jenkins Pipeline Success
+   Docker Container Running
+   Eureka Service Registry Running
+   A code push to GitHub automatically triggers:
+      - Build
+      - Packaging
+      - Docker Image Creation
+      - Deployment
+   without manual intervention.
