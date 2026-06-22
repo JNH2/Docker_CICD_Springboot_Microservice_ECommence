@@ -186,3 +186,18 @@ http://<VM-IP>:8761
       - Docker Image Creation
       - Deployment
    without manual intervention.
+
+## Observability
+Monitoring stack:
+- Spring Boot Actuator
+- Micrometer
+- Prometheus
+- Grafana
+Monitoring Flow:
+Spring Boot
+     ↓
+Actuator
+     ↓
+Prometheus
+     ↓
+Grafana
